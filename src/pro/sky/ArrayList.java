@@ -84,6 +84,7 @@ public class ArrayList implements StringList {
         size = size - count;
         if (size == 0) {
             arrayList = null;
+            size = 1;
             return item;
         }
         count = 0;
@@ -109,6 +110,7 @@ public class ArrayList implements StringList {
         size--;
         if (size == 0) {
             arrayList = null;
+            size = 1;
             return item;
         }
         String[] newArrayList = new String[size];
