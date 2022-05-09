@@ -1,9 +1,8 @@
 package pro.sky;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ArrayListInteger implements IntegerList{
+public class ArrayListInteger implements IntegerList {
     private int[] arrayList;
     private int size = 1;
 
@@ -13,13 +12,14 @@ public class ArrayListInteger implements IntegerList{
             arrayList = new int[size];
             arrayList[size - 1] = item;
         } else {
-            size++;
-            int[] newArrayList = new int[size];
-            for (int i = 0; i < arrayList.length; i++) {
-                newArrayList[i] = arrayList[i];
+            if (size == arrayList.length) {
+                grow();
+                size++;
+                arrayList[size - 1] = item;
+            } else {
+                size++;
+                arrayList[size - 1] = item;
             }
-            newArrayList[size - 1] = item;
-            arrayList = newArrayList;
         }
         return item;
     }
@@ -114,7 +114,7 @@ public class ArrayListInteger implements IntegerList{
 
     @Override
     public boolean contains(int item) {
-        sortInsertion(arrayList);
+        mergeSort(arrayList);
         return searchByBinaryMethod(arrayList, item);
     }
 
@@ -206,13 +206,13 @@ public class ArrayListInteger implements IntegerList{
         return newIntegerArray;
     }
 
-        public void checkIllegalArgumentException(IntegerList otherList) {
+    private void checkIllegalArgumentException(IntegerList otherList) {
         if (otherList == null) {
             throw new IllegalArgumentException("При вызове метода параметр имеет значение null");
         }
     }
 
-    public void checkArrayIndexOutOfBoundsException(int index) {
+    private void checkArrayIndexOutOfBoundsException(int index) {
         if (index > size - 1) {
             throw new ArrayIndexOutOfBoundsException("Параметр индекса выходит за пределы фактического количества элементов или массива");
         }
@@ -221,7 +221,7 @@ public class ArrayListInteger implements IntegerList{
         }
     }
 
-    public void checkNullPointerException() {
+    private void checkNullPointerException() {
         if (arrayList == null) {
             throw new NullPointerException("Список не существует");
         }
@@ -234,7 +234,7 @@ public class ArrayListInteger implements IntegerList{
         for (int i = 0; i < arrayList.length; i++) {
             arrayList[i] = random.nextInt(100);
         }
-    };
+    }
 
     @Override
     public void measureTimeOfBubbleSortMethod() {
@@ -258,6 +258,25 @@ public class ArrayListInteger implements IntegerList{
         long start = System.currentTimeMillis();
         sortInsertion(newArray);
         System.out.println("Время сортировки списка методом вставки = " + (System.currentTimeMillis() - start) + " мс");
+    }
+
+    @Override
+    public void measureTimeOfMergeSortMethod() {
+        int[] newArray = Arrays.copyOf(arrayList, arrayList.length);
+        long start = System.currentTimeMillis();
+        mergeSort(newArray);
+        System.out.println("Время сортировки списка методом слияния = " + (System.currentTimeMillis() - start) + " мс");
+    }
+
+    private void grow() {
+        int newArraySize;
+        if (arrayList.length % 2 == 0) {
+            newArraySize = arrayList.length + (arrayList.length / 2);
+        } else {
+            newArraySize = arrayList.length + (arrayList.length / 2) + 1;
+        }
+        int[] extendedOriginalArray = Arrays.copyOf(arrayList, newArraySize);
+        arrayList = extendedOriginalArray;
     }
 
     private static void swapElements(int[] arr, int indexA, int indexB) {
@@ -300,6 +319,44 @@ public class ArrayListInteger implements IntegerList{
                 j--;
             }
             arr[j] = temp;
+        }
+    }
+
+    //сортировка слиянием
+    private static void mergeSort(int[] arr) {
+        if (arr.length < 2) {
+            return;
+        }
+        int mid = arr.length / 2;
+        int[] left = new int[mid];
+        int[] right = new int[arr.length - mid];
+        for (int i = 0; i < left.length; i++) {
+            left[i] = arr[i];
+        }
+        for (int i = 0; i < right.length; i++) {
+            right[i] = arr[mid + i];
+        }
+        mergeSort(left);
+        mergeSort(right);
+        merge(arr, left, right);
+    }
+
+    private static void merge(int[] arr, int[] left, int[] right) {
+        int mainP = 0;
+        int leftP = 0;
+        int rightP = 0;
+        while (leftP < left.length && rightP < right.length) {
+            if (left[leftP] <= right[rightP]) {
+                arr[mainP++] = left[leftP++];
+            } else {
+                arr[mainP++] = right[rightP++];
+            }
+        }
+        while (leftP < left.length) {
+            arr[mainP++] = left[leftP++];
+        }
+        while (rightP < right.length) {
+            arr[mainP++] = right[rightP++];
         }
     }
 

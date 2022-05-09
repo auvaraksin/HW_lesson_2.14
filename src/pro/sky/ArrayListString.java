@@ -1,5 +1,7 @@
 package pro.sky;
 
+import java.util.Arrays;
+
 public class ArrayListString implements StringList {
     private String[] arrayList;
     private int size = 1;
@@ -199,13 +201,13 @@ public class ArrayListString implements StringList {
         }
     }
 
-    public void checkIllegalArgumentException(StringList otherList) {
+    private void checkIllegalArgumentException(StringList otherList) {
         if (otherList == null) {
             throw new IllegalArgumentException("При вызове метода параметр имеет значение null");
         }
     }
 
-    public void checkArrayIndexOutOfBoundsException(int index) {
+    private void checkArrayIndexOutOfBoundsException(int index) {
         if (index > size - 1) {
             throw new ArrayIndexOutOfBoundsException("Параметр индекса выходит за пределы фактического количества элементов или массива");
         }
@@ -214,7 +216,7 @@ public class ArrayListString implements StringList {
         }
     }
 
-    public void checkNullPointerException() {
+    private void checkNullPointerException() {
         if (arrayList == null) {
             throw new NullPointerException("Список не существует");
         }
