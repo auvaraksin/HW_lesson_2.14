@@ -9,6 +9,7 @@ public class Main {
         arrayListInteger.measureTimeOfBubbleSortMethod();
         arrayListInteger.measureTimeOfSelectionSortMethod();
         arrayListInteger.measureTimeOfInsertionSortMethod();
-        System.out.println(arrayListInteger.contains(100));
+        arrayListInteger.measureTimeOfMergeSortMethod();
+        System.out.println(arrayListInteger.contains(23));
     }
 }

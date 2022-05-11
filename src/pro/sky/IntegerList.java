@@ -19,4 +19,5 @@ public interface IntegerList {
     void measureTimeOfBubbleSortMethod();
     void measureTimeOfSelectionSortMethod();
     void measureTimeOfInsertionSortMethod();
+    void measureTimeOfMergeSortMethod();
 }
