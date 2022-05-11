@@ -1,12 +1,9 @@
 package pro.sky;
 
-public class ArrayList implements StringList {
+public class ArrayListString implements StringList {
     private String[] arrayList;
     private int size = 1;
 
-    // Добавление элемента.
-    // Вернуть добавленный элемент
-    // в качестве результата выполнения
     @Override
     public String add(String item) {
         checkIllegalArgumentException(item);
@@ -25,13 +22,6 @@ public class ArrayList implements StringList {
         return item;
     }
 
-    // Добавление элемента
-    // на определенную позицию списка.
-    // Если выходит за пределы фактического
-    // количества элементов или массива,
-    // выбросить исключение.
-    // Вернуть добавленный элемент
-    // в качестве результата выполнения
     @Override
     public String add(int index, String item) {
         checkArrayIndexOutOfBoundsException(index);
@@ -50,13 +40,6 @@ public class ArrayList implements StringList {
         return item;
     }
 
-    // Установить элемент
-    // на определенную позицию,
-    // затерев существующий.
-    // Выбросить исключение,
-    // если индекс больше
-    // фактического количества элементов
-    // или выходит за пределы массива.
     @Override
     public String set(int index, String item) {
         checkArrayIndexOutOfBoundsException(index);
@@ -65,10 +48,6 @@ public class ArrayList implements StringList {
         return item;
     }
 
-    // Удаление элемента.
-    // Вернуть удаленный элемент
-    // или исключение, если подобный
-    // элемент отсутствует в списке.
     @Override
     public String remove(String item) {
         checkIllegalArgumentException(item);
@@ -99,10 +78,6 @@ public class ArrayList implements StringList {
         return item;
     }
 
-    // Удаление элемента по индексу.
-    // Вернуть удаленный элемент
-    // или исключение, если подобный
-    // элемент отсутствует в списке.
     @Override
     public String remove(int index) {
         checkArrayIndexOutOfBoundsException(index);
@@ -138,8 +113,6 @@ public class ArrayList implements StringList {
         return item;
     }
 
-    // Проверка на существование элемента.
-    // Вернуть true/false
     @Override
     public boolean contains(String item) {
         checkIllegalArgumentException(item);
@@ -151,9 +124,6 @@ public class ArrayList implements StringList {
         return false;
     }
 
-    // Поиск элемента.
-    // Вернуть индекс элемента
-    // или -1 в случае отсутствия.
     @Override
     public int indexOf(String item) {
         checkIllegalArgumentException(item);
@@ -165,9 +135,6 @@ public class ArrayList implements StringList {
         return -1;
     }
 
-    // Поиск элемента с конца.
-    // Вернуть индекс элемента
-    // или -1 в случае отсутствия.
     @Override
     public int lastIndexOf(String item) {
         checkIllegalArgumentException(item);
@@ -179,19 +146,12 @@ public class ArrayList implements StringList {
         return -1;
     }
 
-    // Получить элемент по индексу.
-    // Вернуть элемент или исключение,
-    // если выходит за рамки фактического
-    // количества элементов.
     @Override
     public String get(int index) {
         checkArrayIndexOutOfBoundsException(index);
         return arrayList[index];
     }
 
-    // Сравнить текущий список с другим.
-    // Вернуть true/false или исключение,
-    // если передан null.
     @Override
     public boolean equals(StringList otherList) {
         checkIllegalArgumentException(otherList);
@@ -206,31 +166,23 @@ public class ArrayList implements StringList {
         return true;
     }
 
-    // Вернуть фактическое количество элементов.
     @Override
     public int size() {
         checkNullPointerException();
         return arrayList.length;
     }
 
-    // Вернуть true,
-    // если элементов в списке нет,
-    // иначе false.
     @Override
     public boolean isEmpty() {
         return arrayList == null;
     }
 
-    // Удалить все элементы из списка.
     @Override
     public void clear() {
         arrayList = null;
         size = 1;
     }
 
-    // Создать новый массив
-    // из строк в списке
-    // и вернуть его.
     @Override
     public String[] toArray() {
         checkNullPointerException();
